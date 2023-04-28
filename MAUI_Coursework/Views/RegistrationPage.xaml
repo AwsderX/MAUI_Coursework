@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Name="CP"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUI_Coursework.Views.RegistrationPage"
+             Title="RegistrationPage">
+    <VerticalStackLayout x:Name="VSL" Margin="20,0" Spacing="20">
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Entry x:Name="name_entry" Placeholder="Имя" FontSize="Medium" Text=""/>
+        <Entry x:Name="surname_entry" Placeholder="Фамилия" FontSize="Medium" Text=""/>
+        <Entry x:Name="patronymic_entry" Placeholder="Отчество" FontSize="Medium" Text=""/>
+        <Entry x:Name="login_entry" Placeholder="Логин" FontSize="Medium" Keyboard="Text" Text="" />
+        <Entry x:Name="password_entry" Placeholder="Пароль" FontSize="Medium" IsPassword="true" Text=""/>
+        <Entry x:Name="password_repeat_entry" Placeholder="Пароль ещё раз" FontSize="Medium" IsPassword="true" Text=""/>
+        <Grid x:Name="grid_switch">
+             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label 
+                Text="Ученик"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" 
+                Grid.Column="0" Grid.Row="0" />
+            <Switch 
+                x:Name="role_Switch" 
+                IsToggled="false" 
+                OnColor="#F710D7"           
+                Grid.Column="1" Grid.Row="0" 
+                HorizontalOptions="End" 
+                Toggled="role_Switch_Toggled"/>            
+            <Button 
+                x:Name="bttn_Add" 
+                Text="RED" 
+                Grid.ColumnSpan="3"
+                Grid.Row="1" 
+                Clicked="Register_Clicked"/>
+            </Grid>
+        
+    </VerticalStackLayout>
+</ContentPage>

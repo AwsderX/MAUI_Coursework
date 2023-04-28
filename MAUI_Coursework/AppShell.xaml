@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MAUI_Coursework.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:MAUI_Coursework.Controls"
+    xmlns:local="clr-namespace:MAUI_Coursework"
+    xmlns:views="clr-namespace:MAUI_Coursework.Views"
+    FlyoutHeaderBehavior="CollapseOnScroll">
+
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid BackgroundColor="Black"
+                  HeightRequest="300">
+                <Image Aspect="Fill"
+                       Source="polytech_logo.png"
+                       Opacity="0.6" />
+                <Label Text="Электронный журнал учёта успеваемости и посещений"
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="End" />
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Title="Профиль"
+                      Icon="icon_profile.png"
+                      ContentTemplate="{DataTemplate views:Profile}" />
+        <ShellContent Title="First"
+                      ContentTemplate="{DataTemplate views:NewPage1}" />
+        <Tab Title="Справка"
+             Icon="paw.png">
+            <ShellContent Title="Преподаватели"
+                          ContentTemplate="{DataTemplate views:InfoTeacher}"/>
+            <ShellContent Title="Студенты"
+                          ContentTemplate="{DataTemplate views:InfoStudent}" />
+        </Tab>
+    </FlyoutItem>
+    <ShellContent Title="О программе"
+                    ContentTemplate="{DataTemplate views:AboutPage}" />
+
+</Shell>

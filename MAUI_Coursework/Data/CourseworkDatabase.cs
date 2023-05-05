@@ -10,15 +10,15 @@ using System.Runtime.CompilerServices;
 
 namespace MAUI_Coursework.Data
 {
-    public class CourseworkDatebase : INotifyPropertyChanged
+    public class CourseworkDatebase
     {
         SQLiteAsyncConnection Database;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        //public event PropertyChangedEventHandler PropertyChanged;
+        //private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //}
 
         public CourseworkDatebase()
         {
@@ -92,7 +92,7 @@ namespace MAUI_Coursework.Data
             await Init();
                 var a = await Database.UpdateAsync(student);
                 // Оповещаем подписчиков об изменении данных
-                NotifyPropertyChanged(nameof(Students));
+                //-NotifyPropertyChanged(nameof(Students));
                 return a;
         }
         public async Task<int> UpdateTeacher(Teachers teacher)

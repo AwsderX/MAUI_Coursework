@@ -201,7 +201,7 @@ namespace MAUI_Coursework.Views;
 
 public class ViewModelStudent : INotifyPropertyChanged
 {
-    bool red = true;
+    //bool red = true;
     CourseworkDatebase _courseworkDatebase;
     private List<StudentsImage> _myDataList;
     private List<Students> _myDataListDB;
@@ -211,7 +211,7 @@ public class ViewModelStudent : INotifyPropertyChanged
         set
         {
             _myDataListDB = value;
-            //OnPropertyChanged();
+            OnPropertyChanged(nameof(MyDataListDB));
         }
     }
     public List<StudentsImage> MyDataList
@@ -220,14 +220,14 @@ public class ViewModelStudent : INotifyPropertyChanged
         set
         {
             _myDataList = value;
-            //OnPropertyChanged();
+            OnPropertyChanged(nameof(MyDataList));
         }
     }
 
     public ViewModelStudent()
     {
         _courseworkDatebase = new CourseworkDatebase();
-        _courseworkDatebase.PropertyChanged += OnCourseworkDatabasePropertyChanged;
+       // _courseworkDatebase.PropertyChanged += OnCourseworkDatabasePropertyChanged;
     }
     private async void OnCourseworkDatabasePropertyChanged(object sender, PropertyChangedEventArgs e)
     {
@@ -244,12 +244,17 @@ public class ViewModelStudent : INotifyPropertyChanged
     }
     public event PropertyChangedEventHandler PropertyChanged;
 
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    public virtual void OnPropertyChanged(string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        //DataSetter();
-        //RealList();
     }
+
+    //protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    //{
+    //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    //    //DataSetter();
+    //    //RealList();
+    //}
     public void RealList()
     {
         MyDataList = new List<StudentsImage>();
@@ -273,10 +278,10 @@ public partial class InfoStudent : ContentPage
     public InfoStudent()
     {
         InitializeComponent();
-
+       
         LoadDataAsync();
     }
-        ViewModelStudent viewModel = new();
+    ViewModelStudent viewModel = new();
     private async void LoadDataAsync()
     {
         await viewModel.DataSetter();
@@ -292,9 +297,30 @@ public partial class InfoStudent : ContentPage
     {
         if (e.Item is StudentsImage student)
         {
-            DisplayAlert("Информация о пользователе",
-                         $"Логин: {student.Name}\nПароль: {student.Surname}\nРоль: {student.Patronymic}",
-                         "Ок");
+
+            //DisplayAlert("Информация о пользователе",
+            //             $"Логин: {student.Name}\nПароль: {student.Surname}\nРоль: {student.Patronymic}",
+            //             "Ок");
+        }
+    }
+
+    private void ScrollView_Scrolled(object sender, ScrolledEventArgs e)
+    {
+        if (e.ScrollY == 0)
+        {
+            viewModel = new();
+            LoadDataAsync();
+            viewModel.OnPropertyChanged(nameof(viewModel.MyDataList));
+        }
+    }
+
+    private void ScrollView_ScrollToRequested(object sender, ScrollToRequestedEventArgs e)
+    {
+        if (e.Mode == ScrollToMode.Position && e.ScrollY == 0)
+        {
+            viewModel = new();
+            LoadDataAsync();
+            viewModel.OnPropertyChanged(nameof(viewModel.MyDataList));
         }
     }
 }

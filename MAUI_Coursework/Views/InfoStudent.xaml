@@ -3,22 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MAUI_Coursework.Views.InfoStudent"
              Title="InfoStudent">
-    <ListView ItemsSource="{Binding MyDataList}" RowHeight="100" ItemTapped="OnItemTapped" SeparatorVisibility="None">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <Grid Padding="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="2*" />
-                        </Grid.ColumnDefinitions>
-                        <Image Source="{Binding Photo}" Aspect="AspectFill" Grid.Column="0" />
-                        <Label Text="{Binding Name}" Grid.Column="1" />
-                        <Label Text="{Binding Surname}" Grid.Column="2" />
-                    </Grid>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+    <ScrollView VerticalScrollBarVisibility="Never">
+        <ListView ItemsSource="{Binding MyDataList}" RowHeight="100" ItemTapped="OnItemTapped" SeparatorVisibility="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding Photo}" Aspect="AspectFill" Grid.Column="0" />
+                            <Label Text="{Binding Name}" Grid.Column="1" />
+                            <Label Text="{Binding Surname}" Grid.Column="2" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ScrollView>
 </ContentPage>

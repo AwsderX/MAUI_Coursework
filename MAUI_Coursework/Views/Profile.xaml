@@ -3,11 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MAUI_Coursework.Views.Profile"
              Title="Profile">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Button Text="Загрузить изображение" Clicked="Button_Clicked"/>
-    </VerticalStackLayout>
+    <ScrollView>
+        <StackLayout x:Name="StackL" Margin="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height = "*"/>
+                    <RowDefinition Height = "*"/>
+                    <RowDefinition Height = "*"/>
+                    <RowDefinition Height = "60"/>
+                    <RowDefinition Height = "*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width = "*"/>
+                    <ColumnDefinition Width = "*"/>
+                </Grid.ColumnDefinitions>
+                <Image x:Name="imagePhoto" Source="not_photo.jpg" Aspect="AspectFit" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4"/>
+                <Label x:Name="labelSurname" Text="Фамилия" Grid.Column="1" Grid.Row="0" Margin="10,5" FontSize="Medium"/>
+                <Label x:Name="labelName"  Text="Имя" Grid.Column="1" Grid.Row="1" Margin="10,5" FontSize="Medium"/>
+                <Label x:Name="labelPatronymic" Text="Отчество" Grid.Column="1" Grid.Row="2" Margin="10,5" FontSize="Medium"/>
+                <Button Text="Загрузить изображение" Clicked="Button_Clicked" Grid.Column="0" Grid.Row="5" BackgroundColor="#A82038" Padding="6"/>
+            </Grid>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

@@ -54,6 +54,7 @@
 	  <None Remove="Resources\Images\logo_2.png" />
 	  <None Remove="Resources\Images\logo_black.png" />
 	  <None Remove="Resources\Images\logo_mpu.jpg" />
+	  <None Remove="Resources\Images\not_photo.jpg" />
 	  <None Remove="Resources\Images\polytech_logo.png" />
 	</ItemGroup>
 

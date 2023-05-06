@@ -266,7 +266,7 @@ public class ViewModelStudent : INotifyPropertyChanged
             studentsImage.Patronymic = item.Patronymic;
             studentsImage.Group = item.Group;
             studentsImage.ID_user = item.ID_user;
-            if (item.Photo != null) { studentsImage.Photo = ImageSource.FromStream(() => new MemoryStream(item.Photo)); } else { studentsImage.Photo = ""; }
+            if (item.Photo != null) { studentsImage.Photo = ImageSource.FromStream(() => new MemoryStream(item.Photo)); } else { studentsImage.Photo = "not_photo.jpg"; }
             MyDataList.Add(studentsImage);
         }
     }
@@ -278,7 +278,32 @@ public partial class InfoStudent : ContentPage
     public InfoStudent()
     {
         InitializeComponent();
-       
+
+        SListView.ItemTapped += (sender, e) =>
+        {
+            if (e.Item != null)
+            {
+                SListView.SelectedItem = null; // Сбрасываем выбор элемента
+            }
+        };
+
+        SListView.ItemSelected += (sender, e) =>
+        {
+            if (e.SelectedItem != null && e.SelectedItem is StudentsImage selectedData)
+            {
+                // Здесь можно применить стиль или изменить фон элемента на основе выбранного элемента
+                // Пример:
+                foreach (var cell in SListView.TemplatedItems)
+                {
+                    var viewCell = cell as ViewCell;
+                    if (viewCell.View != null)
+                    {
+                        viewCell.View.BackgroundColor = (viewCell.BindingContext == selectedData) ? Color.FromArgb("#FF1F40") : Color.FromArgb("#FFFFFF");
+                    }
+                }
+            }
+        };
+
         LoadDataAsync();
     }
     ViewModelStudent viewModel = new();
@@ -288,11 +313,11 @@ public partial class InfoStudent : ContentPage
         BindingContext = viewModel;
 
     }
-    protected override async void OnNavigatedTo(NavigatedToEventArgs args)
-    {
-        base.OnNavigatedTo(args);
-        await viewModel.DataSetter();
-    }
+    //protected override async void OnNavigatedTo(NavigatedToEventArgs args)
+    //{
+    //    base.OnNavigatedTo(args);
+    //    await viewModel.DataSetter();
+    //}
     private void OnItemTapped(object sender, ItemTappedEventArgs e)
     {
         if (e.Item is StudentsImage student)
@@ -307,16 +332,6 @@ public partial class InfoStudent : ContentPage
     private void ScrollView_Scrolled(object sender, ScrolledEventArgs e)
     {
         if (e.ScrollY == 0)
-        {
-            viewModel = new();
-            LoadDataAsync();
-            viewModel.OnPropertyChanged(nameof(viewModel.MyDataList));
-        }
-    }
-
-    private void ScrollView_ScrollToRequested(object sender, ScrollToRequestedEventArgs e)
-    {
-        if (e.Mode == ScrollToMode.Position && e.ScrollY == 0)
         {
             viewModel = new();
             LoadDataAsync();

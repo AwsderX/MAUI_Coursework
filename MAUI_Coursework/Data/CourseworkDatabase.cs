@@ -5,8 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MAUI_Coursework.Models;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace MAUI_Coursework.Data
 {
@@ -63,7 +61,11 @@ namespace MAUI_Coursework.Data
             await Init();
             return await Database.Table<Teachers>().Where(i => i.ID_user == id).FirstOrDefaultAsync();
         }
-
+        public async Task<List<Lessons>> GetLessonsAsync(int id)
+        {
+            await Init();
+            return await Database.Table<Lessons>().Where(i => i.ID_teacher == id).ToListAsync();
+        }
         public async Task<List<Users>> GetUsersAsync()
         {
             await Init();
@@ -82,10 +84,15 @@ namespace MAUI_Coursework.Data
         public async Task<List<Students>> GetStudentsAsync()
         {
             await Init();
-                var a = await Database.Table<Students>().ToListAsync();
+            return await Database.Table<Students>().ToListAsync();
                 // Оповещаем подписчиков об изменении данных
                 //NotifyPropertyChanged(nameof(Students));
-                return a;
+               // return a;
+        }
+        public async Task<List<Teachers>> GetTeachersAsync()
+        {
+            await Init();
+            return await Database.Table<Teachers>().ToListAsync();
         }
         public async Task<int> UpdateStudent(Students student)
         {
@@ -99,6 +106,11 @@ namespace MAUI_Coursework.Data
         {
             await Init();
                 return await Database.UpdateAsync(teacher);
+        }
+        public async Task<int> SaveLessonAsync(Lessons item)
+        {
+            await Init();
+            return await Database.InsertAsync(item);
         }
 
 

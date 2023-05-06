@@ -29,7 +29,7 @@ public partial class LoginPage : ContentPage
                     MauiProgram.loginGlobal = users.Login;
                     MauiProgram.roleGlobal = users.Role;
                     MauiProgram.idGlobal = users.ID;
-                    await DisplayAlert($"Привет {MauiProgram.loginGlobal}", $"Твоя роль {MauiProgram.roleGlobal}", "OK");
+                    //await DisplayAlert($"Привет {MauiProgram.loginGlobal}", $"Твоя роль {MauiProgram.roleGlobal}", "OK");
                     Application.Current.MainPage = new AppShell();
                 } else
                 {

@@ -8,7 +8,7 @@ public static class MauiProgram
 	public static int idGlobal = 0;
 	public static int roleGlobal = 0;
 	public static string loginGlobal = "";
-	public static MauiApp CreateMauiApp()
+    public static MauiApp CreateMauiApp()
 	{
 		var builder = MauiApp.CreateBuilder();
 		builder

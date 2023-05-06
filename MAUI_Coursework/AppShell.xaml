@@ -6,7 +6,8 @@
     xmlns:controls="clr-namespace:MAUI_Coursework.Controls"
     xmlns:local="clr-namespace:MAUI_Coursework"
     xmlns:views="clr-namespace:MAUI_Coursework.Views"
-    FlyoutHeaderBehavior="CollapseOnScroll">
+    FlyoutHeaderBehavior="CollapseOnScroll"
+    FlyoutBackgroundColor="#FFFFFF">
 
     <Shell.FlyoutHeaderTemplate>
         <DataTemplate>

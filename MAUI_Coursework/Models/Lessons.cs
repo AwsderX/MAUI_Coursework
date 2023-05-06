@@ -14,6 +14,7 @@ namespace MAUI_Coursework.Models
         public int ID_teacher { get; set; }
         public string Name { get; set; }
         public string Group { get; set; }
-        public DateTime TimeL { get; set; }
+        public string Weekday { get; set; }
+        public TimeSpan TimeL { get; set; }
     }
 }

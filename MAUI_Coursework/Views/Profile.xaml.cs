@@ -13,7 +13,8 @@ public partial class Profile : ContentPage
 
     Entry entryName;
     Entry entryGroup;
-    DateTime dt = DateTime.Now;
+    TimeSpan ts = TimeSpan.Zero;
+    string weekday;
     Button buttonAddLesson;
 
     public Profile()
@@ -45,7 +46,8 @@ public partial class Profile : ContentPage
             {
                 Label labelName = new Label();
                 Label labelGroup = new Label();
-                Label labelDateTime = new Label();
+                Label labelWeekday = new Label();
+                Label labelTime = new Label();
                 Grid grid = new Grid
                 {
                     RowDefinitions =
@@ -56,26 +58,31 @@ public partial class Profile : ContentPage
                     ColumnDefinitions =
                 {
                     new ColumnDefinition { Width = GridLength.Star },
+                    new ColumnDefinition { Width = GridLength.Star },
                     new ColumnDefinition { Width = 80 },
                 }
                 };
 
                 labelName.SetBinding(Label.TextProperty, "Name");
                 labelGroup.SetBinding(Label.TextProperty, "Group");
-                labelDateTime.SetBinding(Label.TextProperty, "TimeL");
+                labelWeekday.SetBinding(Label.TextProperty, "Weekday");
+                labelTime.SetBinding(Label.TextProperty, "TimeL");
 
                 grid.Children.Add(labelName);
                 grid.Children.Add(labelGroup);
-                grid.Children.Add(labelDateTime);
+                grid.Children.Add(labelWeekday);
+                grid.Children.Add(labelTime);
 
                 // Установка позиций элементов внутри сетки
                 Grid.SetColumn(labelName, 0);
                 Grid.SetRow(labelName, 0);
-                Grid.SetColumnSpan(labelName, 2);
-                Grid.SetColumn(labelDateTime, 0);
-                Grid.SetRow(labelDateTime, 1);
-                Grid.SetColumn(labelGroup, 1);
+                Grid.SetColumnSpan(labelName, 3);
+                Grid.SetColumn(labelWeekday, 0);
+                Grid.SetRow(labelWeekday, 1);
+                Grid.SetColumn(labelGroup, 2);
                 Grid.SetRow(labelGroup, 1);
+                Grid.SetColumn(labelTime, 1);
+                Grid.SetRow(labelTime, 1);
 
                 return new ViewCell
                 {
@@ -136,15 +143,15 @@ public partial class Profile : ContentPage
         };
         datePicker.DateSelected += (sender, e) =>
         {
-            dt = e.NewDate;
+            DateTime date = e.NewDate;
+            weekday = date.DayOfWeek.ToString();
             // Обработка выбранной даты
         };
         timePicker.PropertyChanged += (sender, e) =>
         {
             if (e.PropertyName == nameof(TimePicker.Time))
             {
-                TimeSpan selectedTime = timePicker.Time;
-                dt = new DateTime(dt.Year, dt.Month, dt.Day, selectedTime.Hours, selectedTime.Minutes, selectedTime.Seconds);
+                ts = timePicker.Time;              
                 // Обработка выбранного времени
             }
         };
@@ -168,10 +175,14 @@ public partial class Profile : ContentPage
     {
         Lessons lessons = new Lessons();
         lessons.Name = entryName.Text;
-        lessons.Group=entryGroup.Text;
-        lessons.TimeL = dt;
+        lessons.Group = entryGroup.Text;
+        lessons.Weekday = weekday;
+        lessons.TimeL = ts;
         lessons.ID_teacher = MauiProgram.idGlobal;
-        await _courseworkDatebase.SaveLessonAsync(lessons);
+        if (await _courseworkDatebase.SaveLessonAsync(lessons) != 0)
+        {
+            //Закрыть всё и обновить по возможности
+        }
     }
 
     private async void Button_Clicked(object sender, EventArgs e)

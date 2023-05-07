@@ -21,5 +21,6 @@ public partial class AppShell : Shell
     void RegisterRoutes()
     {
         Routing.RegisterRoute("aboutPage", typeof(AboutPage));
+        Routing.RegisterRoute("gradesView", typeof(GradesView));
     }
 }

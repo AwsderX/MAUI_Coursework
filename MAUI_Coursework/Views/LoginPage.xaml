@@ -13,5 +13,6 @@
         <Button Text="Войти" Clicked="Login_Clicked" />
         <Button Text="Регистрация" Clicked="Registration_Clicked"/>
         <Button Text="HardLogin" Clicked="HardLogin_Clicked"/>
+        <Button Text="QR" Clicked="Button_Clicked"/>
     </VerticalStackLayout>
 </ContentPage>

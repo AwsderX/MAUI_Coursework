@@ -6,20 +6,13 @@ namespace MAUI_Coursework.Views;
 
 public partial class AboutPage : ContentPage
 {
-	public AboutPage(CourseworkDatebase todoItemDatabase)
+	public AboutPage()
 	{
 		InitializeComponent();
-        database = todoItemDatabase;
     }
 
-    TodoItem item = new TodoItem();
-    CourseworkDatebase database;
 
     private async void LearnMore_Clicked(object sender, EventArgs e)
     {
-        item.Name = "223";
-        item.Notes = "5555";
-        item.Done = true;
-        await database.SaveItemAsync(item);
     }
 }

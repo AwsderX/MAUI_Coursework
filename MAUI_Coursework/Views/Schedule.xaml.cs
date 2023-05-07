@@ -1,6 +1,6 @@
-namespace MAUI_Coursework.Views;
 using MAUI_Coursework.Data;
 using MAUI_Coursework.Models;
+namespace MAUI_Coursework.Views;
 
 public partial class Schedule : ContentPage
 {
@@ -115,6 +115,7 @@ public partial class Schedule : ContentPage
                 };
             });
             listView.ItemTemplate = dataTemplate;
+            listView.ItemTapped += ListView_ItemTapped;
 
             Grid.SetColumn(listView, 0);
             Grid.SetRow(listView, 1);
@@ -123,6 +124,18 @@ public partial class Schedule : ContentPage
             StackL.Add(grid);
         }
        
+    }
+
+    private async void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
+    {
+        GradesView gradesView = new("100", 1);
+        await Navigation.PushAsync(gradesView);
+        if (sender is Lessons x) 
+        {
+            await DisplayAlert("1","1","1");
+            //GradesView gradesView = new(x.Group, x.ID);
+           //await Navigation.PushAsync(gradesView);  
+        }
     }
 
     private void ScrollV_Scrolled(object sender, ScrolledEventArgs e)

@@ -309,6 +309,7 @@ public partial class Profile : ContentPage
                 }
             }
         }
+        StackL.Clear();
         LoadData();
     }
 

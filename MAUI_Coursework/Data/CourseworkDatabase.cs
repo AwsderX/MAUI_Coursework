@@ -95,6 +95,14 @@ namespace MAUI_Coursework.Data
                 //NotifyPropertyChanged(nameof(Students));
                // return a;
         }
+        public async Task<List<Students>> GetStudentsAsync(string group)
+        {
+            await Init();
+            return await Database.Table<Students>().Where(i => i.Group == group).ToListAsync();
+            // Оповещаем подписчиков об изменении данных
+            //NotifyPropertyChanged(nameof(Students));
+            // return a;
+        }
         public async Task<List<Teachers>> GetTeachersAsync()
         {
             await Init();

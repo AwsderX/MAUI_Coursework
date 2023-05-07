@@ -58,4 +58,14 @@ public partial class LoginPage : ContentPage
         MauiProgram.idGlobal = 1;
         Application.Current.MainPage = new AppShell();
     }
+
+    private void Button_ClickedAsync(object sender, EventArgs e)
+    {
+
+    }
+
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+
+    }
 }

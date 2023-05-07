@@ -29,7 +29,7 @@
                       Icon="icon_profile.png"
                       ContentTemplate="{DataTemplate views:Profile}" />
         <ShellContent Title="Расписание"
-                      ContentTemplate="{DataTemplate views:NewPage1}" />
+                      ContentTemplate="{DataTemplate views:Schedule}" />
         <Tab Title="Справка"
              Icon="paw.png">
             <ShellContent Title="Преподаватели"

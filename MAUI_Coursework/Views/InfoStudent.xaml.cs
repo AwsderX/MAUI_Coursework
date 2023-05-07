@@ -274,7 +274,6 @@ public class ViewModelStudent : INotifyPropertyChanged
 [XamlCompilation(XamlCompilationOptions.Compile)]
 public partial class InfoStudent : ContentPage
 {
-
     public InfoStudent()
     {
         InitializeComponent();

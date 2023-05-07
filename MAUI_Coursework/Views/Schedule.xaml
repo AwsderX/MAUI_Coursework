@@ -1,23 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MAUI_Coursework.Views.NewPage1">
-    <ListView ItemsSource="{Binding MyDataList}" RowHeight="100" ItemTapped="OnItemTapped" SeparatorVisibility="None">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <Grid Padding="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="2*" />
-                        </Grid.ColumnDefinitions>
-                        <Image Source="polytech_logo.png" Aspect="AspectFill" Grid.Column="0" />
-                        <Label Text="{Binding Login}" Grid.Column="1" />
-                        <Label Text="{Binding Password}" Grid.Column="2" />
-                    </Grid>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+             x:Class="MAUI_Coursework.Views.Schedule"
+             Title="Schedule">
+    <ScrollView x:Name="ScrollV"  Scrolled="ScrollV_Scrolled">
+        <StackLayout x:Name="StackL" Margin = "15"/>
+    </ScrollView>
 </ContentPage>

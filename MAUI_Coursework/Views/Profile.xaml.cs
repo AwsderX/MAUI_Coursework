@@ -66,7 +66,7 @@ public partial class Profile : ContentPage
                         if (await _courseworkDatebase.DeleteLessonAsync(selectedLesson) != 0)
                         {
                             await Task.Delay(100);
-                            StackL.Clear();
+                            await RefreshListView();
                         }
 
                     }
@@ -155,7 +155,13 @@ public partial class Profile : ContentPage
             }
         }
     }
-
+    private async Task RefreshListView()
+    {
+        // Очистка текущего списка элементов в ListView
+        listViewLessons.ItemsSource = null;
+        // Получение обновленных данных из базы данных
+        listViewLessons.ItemsSource = await _courseworkDatebase.GetLessonsAsync(MauiProgram.idGlobal); // Получение обновленных элементов из базы данных
+    }
     private async void ButtonAddLesson_Clicked(object sender, EventArgs e)
     {
         if (buttonAddLesson.Text == "Добавить урок")

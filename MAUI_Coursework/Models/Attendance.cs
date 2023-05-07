@@ -13,6 +13,7 @@ namespace MAUI_Coursework.Models
         public int ID { get; set; }
         public int ID_student { get; set; }
         public int ID_lesson { get; set; }
+        public DateTime Date_lesson { get; set; }
         public int Att { get; set; }
     }
 }

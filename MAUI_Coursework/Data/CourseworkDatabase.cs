@@ -56,6 +56,12 @@ namespace MAUI_Coursework.Data
             await Init();
             return await Database.Table<Students>().Where(i => i.ID_user == id).FirstOrDefaultAsync();
         }
+        public async Task<string> GetStudentGroupAsync(int id)
+        {
+            await Init();
+            string result = await Database.ExecuteScalarAsync<string>($"SELECT [Group] FROM [Students] WHERE [ID_user] = '{id}'");
+            return result;
+        }
         public async Task<Teachers> GetTeacherAsync(int id)
         {
             await Init();
@@ -116,6 +122,16 @@ namespace MAUI_Coursework.Data
         {
             await Init();
             return await Database.DeleteAsync(item);
+        }
+        public async Task<List<Lessons>> GetLessonsScheduleAsync(int id, string weekday)
+        {
+            await Init();
+            return await Database.Table<Lessons>().Where(i => i.ID_teacher == id).Where(i => i.Weekday == weekday).OrderBy(i => i.TimeL).ToListAsync();
+        }
+        public async Task<List<Lessons>> GetLessonsScheduleAsync(string group, string weekday)
+        {
+            await Init();
+            return await Database.Table<Lessons>().Where(i => i.Group == group).Where(i => i.Weekday == weekday).OrderBy(i => i.TimeL).ToListAsync();
         }
 
 

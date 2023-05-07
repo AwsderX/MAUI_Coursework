@@ -10,6 +10,7 @@ public partial class AppShell : Shell
         RegisterRoutes();
         BindingContext = this;
 
+
     }
 
     private void Start_Clicked(object sender, EventArgs e)

@@ -93,7 +93,7 @@ public partial class InfoTeacher : ContentPage
                     var viewCell = cell as ViewCell;
                     if (viewCell.View != null)
                     {
-                        viewCell.View.BackgroundColor = (viewCell.BindingContext == selectedData) ? Color.FromArgb("#FF1F40") : Color.FromArgb("#FFFFFF");
+                        viewCell.View.BackgroundColor = (viewCell.BindingContext == selectedData) ? Color.FromArgb("#A82038") : Color.FromArgb("#FFFFFF");
                     }
                 }
             }

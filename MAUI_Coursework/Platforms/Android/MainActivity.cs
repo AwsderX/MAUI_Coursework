@@ -8,3 +8,4 @@ namespace MAUI_Coursework;
 public class MainActivity : MauiAppCompatActivity
 {
 }
+

@@ -291,14 +291,12 @@ public partial class InfoStudent : ContentPage
         {
             if (e.SelectedItem != null && e.SelectedItem is StudentsImage selectedData)
             {
-                // Здесь можно применить стиль или изменить фон элемента на основе выбранного элемента
-                // Пример:
                 foreach (var cell in SListView.TemplatedItems)
                 {
                     var viewCell = cell as ViewCell;
                     if (viewCell.View != null)
                     {
-                        viewCell.View.BackgroundColor = (viewCell.BindingContext == selectedData) ? Color.FromArgb("#FF1F40") : Color.FromArgb("#FFFFFF");
+                        viewCell.View.BackgroundColor = (viewCell.BindingContext == selectedData) ? Color.FromArgb("#A82038") : Color.FromArgb("#FFFFFF");
                     }
                 }
             }

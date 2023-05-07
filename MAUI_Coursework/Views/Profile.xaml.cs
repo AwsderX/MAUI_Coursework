@@ -8,7 +8,7 @@ public partial class Profile : ContentPage
     CourseworkDatebase _courseworkDatebase = new();
     Teachers teachers;
     Students students;
-    Label labelGroup;
+    Label labelGroupS;
     ListView listViewLessons;
 
     Entry entryName;
@@ -17,17 +17,21 @@ public partial class Profile : ContentPage
     string weekday;
     Button buttonAddLesson;
 
+    DatePicker datePicker = new();
+    TimePicker timePicker = new();
+    Button button = new();
+
     public Profile()
 	{
 		InitializeComponent();
         LoadData();
-        buttonAddLesson = new();
-        buttonAddLesson.Text = "Добавить урок";
-        buttonAddLesson.Clicked += ButtonAddLesson_Clicked;
     }
 
     public async void LoadData()
     {
+        buttonAddLesson = new();
+        buttonAddLesson.Text = "Добавить урок";
+        buttonAddLesson.Clicked += ButtonAddLesson_Clicked;
         if (MauiProgram.roleGlobal == 2)
         {
             teachers = await _courseworkDatebase.GetTeacherAsync(MauiProgram.idGlobal);
@@ -39,6 +43,40 @@ public partial class Profile : ContentPage
                 imagePhoto.Source = ImageSource.FromStream(() => new MemoryStream(teachers.Photo)); ;
             }
             listViewLessons = new();
+
+            listViewLessons.ItemSelected += async (sender, e) =>
+            {
+                if (e.SelectedItem != null && e.SelectedItem is Lessons selectedData)
+                {
+                    foreach (var cell in listViewLessons.TemplatedItems)
+                    {
+                        var viewCell = cell as ViewCell;
+                        if (viewCell.View != null)
+                        {
+                            viewCell.View.BackgroundColor = (viewCell.BindingContext == selectedData) ? Color.FromArgb("#A82038") : Color.FromArgb("#FFFFFF");
+                        }
+                    }
+                }
+                bool result = await DisplayAlert("Внимание", "Вы действительно хотите удалить урок?", "ОК", "Отмена");
+
+                if (result)
+                {
+                    if (e.SelectedItem is Lessons selectedLesson)
+                    {
+                        if (await _courseworkDatebase.DeleteLessonAsync(selectedLesson) != 0)
+                        {
+                            await Task.Delay(100);
+                            StackL.Clear();
+                        }
+
+                    }
+                }
+                else
+                {
+                    // Пользователь выбрал кнопку "Отмена"
+                }
+            };
+
             listViewLessons.ItemsSource = await _courseworkDatebase.GetLessonsAsync(MauiProgram.idGlobal);
 
             // Создаем шаблон для отображения элементов в ListView
@@ -95,7 +133,7 @@ public partial class Profile : ContentPage
             StackL.Add(buttonAddLesson);
 
         }
-        else if (MauiProgram.roleGlobal == 3)//студент
+        else if (MauiProgram.roleGlobal == 3) //студент
         {
             students = await _courseworkDatebase.GetStudentAsync(MauiProgram.idGlobal);
             labelName.Text = students.Name;
@@ -105,84 +143,132 @@ public partial class Profile : ContentPage
             {
                 imagePhoto.Source = ImageSource.FromStream(() => new MemoryStream(students.Photo)); ;
             }
-
-            labelGroup = new()
+            if (labelGroupS == null)
             {
-                Text = $"Учебная группа {students.Group}",
-                FontSize = 18,
-                Margin = 10
-            };
-            StackL.Add(labelGroup);
+                labelGroupS = new()
+                {
+                    Text = $"Учебная группа {students.Group}",
+                    FontSize = 18,
+                    Margin = 10
+                };
+                StackL.Add(labelGroupS);
+            }
         }
     }
 
-    private void ButtonAddLesson_Clicked(object sender, EventArgs e)
+    private async void ButtonAddLesson_Clicked(object sender, EventArgs e)
     {
-        entryName = new()
+        if (buttonAddLesson.Text == "Добавить урок")
         {
-            Margin = 5,
-            FontSize = 18,
-            Placeholder = "Название дисциплины"
-        };
-        entryGroup = new()
-        {
-            Margin = 5,
-            FontSize = 18,
-            Placeholder = "Группа"
-        };
-        DatePicker datePicker = new()
-        {
-            Margin = 5,
-            FontSize = 18
-        };
-        TimePicker timePicker = new()
-        {
-            Margin = 5,
-            FontSize = 18,
-            Format = "HH:mm"
-        };
-        datePicker.DateSelected += (sender, e) =>
-        {
-            DateTime date = e.NewDate;
-            weekday = date.DayOfWeek.ToString();
-            // Обработка выбранной даты
-        };
-        timePicker.PropertyChanged += (sender, e) =>
-        {
-            if (e.PropertyName == nameof(TimePicker.Time))
+            entryName = new()
             {
-                ts = timePicker.Time;              
-                // Обработка выбранного времени
+                Margin = 5,
+                FontSize = 18,
+                Placeholder = "Название дисциплины",
+                Text = ""
+            };
+            entryGroup = new()
+            {
+                Margin = 5,
+                FontSize = 18,
+                Placeholder = "Группа",
+                Text = ""
+            };
+            datePicker = new()
+            {
+                Margin = 5,
+                FontSize = 18
+            };
+            timePicker = new()
+            {
+                Margin = 5,
+                FontSize = 18,
+                Format = "HH:mm"
+            };
+            datePicker.DateSelected += (sender, e) =>
+            {
+                DateTime date = e.NewDate;
+                weekday = date.DayOfWeek.ToString();
+                // Обработка выбранной даты
+            };
+            timePicker.PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName == nameof(TimePicker.Time))
+                {
+                    ts = timePicker.Time;
+                    while (ts.Minutes % 5 != 0)
+                    {
+                        ts = ts.Add(TimeSpan.FromMinutes(1));
+                    }
+                    timePicker.Time = ts;
+                    // Обработка выбранного времени
+                }
+            };
+            button = new()
+            {
+                Text = "Сохранить",
+                FontSize = 14,
+                Margin = 5
+            };
+            button.Clicked += ButtonSaveLesson_Clicked;
+            buttonAddLesson.IsEnabled = false;
+            #pragma warning disable 4014
+            List<View> views = new() { entryName, entryGroup, datePicker, timePicker, button };
+            foreach (var view in views)
+            {
+                view.Opacity = 0;
+                view.Scale = 0.5;
+                StackL.Add(view);
+                await Task.Delay(100); // Добавьте небольшую задержку для полного отображения элементов
+                await ScrollV.ScrollToAsync(view, ScrollToPosition.End, true);
+                view.FadeTo(1, 150, Easing.Linear);
+                view.ScaleTo(1, 150, Easing.SpringOut);
             }
-        };
-        Button button = new()
+            #pragma warning restore 4014
+            buttonAddLesson.IsEnabled = true;
+
+            buttonAddLesson.Text = "Скрыть";
+        } else
         {
-            Text = "Сохранить",
-            FontSize = 14,
-            Margin= 5
-        };
-        button.Clicked += ButtonSaveLesson_Clicked;
-        StackL.Add(entryName);
-        StackL.Add(entryGroup);
-        StackL.Add(datePicker);
-        StackL.Add(timePicker);
-        StackL.Add(button);
-        buttonAddLesson.IsEnabled = false;
+            buttonAddLesson.Text = "Добавить урок";
+
+            buttonAddLesson.IsEnabled = false;
+            #pragma warning disable 4014
+            List<View> views = new() { button, timePicker, datePicker, entryGroup, entryName };
+            foreach (var view in views)
+            {
+                view.Opacity = 1;
+                view.Scale = 1;
+                view.FadeTo(0, 150, Easing.Linear);
+                view.ScaleTo(0.8, 150, Easing.SpringOut);
+                await ScrollV.ScrollToAsync(0, ScrollV.ScrollY - 52, true);
+                await Task.Delay(150);
+                StackL.Children.Remove(view);
+            }
+            #pragma warning restore 4014
+            buttonAddLesson.IsEnabled = true;
+    
+        }
 
     }
 
     private async void ButtonSaveLesson_Clicked(object sender, EventArgs e)
     {
-        Lessons lessons = new Lessons();
-        lessons.Name = entryName.Text;
-        lessons.Group = entryGroup.Text;
-        lessons.Weekday = weekday;
-        lessons.TimeL = ts;
-        lessons.ID_teacher = MauiProgram.idGlobal;
-        if (await _courseworkDatebase.SaveLessonAsync(lessons) != 0)
+        if (entryName.Text != "" && entryGroup.Text != "")
         {
-            //Закрыть всё и обновить по возможности
+            Lessons lessons = new Lessons();
+            lessons.Name = entryName.Text;
+            lessons.Group = entryGroup.Text;
+            lessons.Weekday = weekday;
+            lessons.TimeL = ts;
+            lessons.ID_teacher = MauiProgram.idGlobal;
+            if (await _courseworkDatebase.SaveLessonAsync(lessons) != 0)
+            {
+                entryName.Text = string.Empty;
+                entryGroup.Text = string.Empty;
+            }
         }
+        else await DisplayAlert("Ошибка","Не все поля заполнены","Ок");
     }
 
     private async void Button_Clicked(object sender, EventArgs e)
@@ -210,12 +296,22 @@ public partial class Profile : ContentPage
                 {
                     teachers.Photo = imageBytes;
                     await _courseworkDatebase.UpdateTeacher(teachers);
-                } else if (MauiProgram.roleGlobal == 3)//студент
+                } else if (MauiProgram.roleGlobal == 3) //студент
                 {
                     students.Photo = imageBytes;
                     await _courseworkDatebase.UpdateStudent(students);
                 }
             }
+        }
+        LoadData();
+    }
+
+    private void ScrollV_Scrolled(object sender, ScrolledEventArgs e)
+    {
+        if (e.ScrollY == 0)
+        {
+            StackL.Clear();
+            LoadData();
         }
     }
 }

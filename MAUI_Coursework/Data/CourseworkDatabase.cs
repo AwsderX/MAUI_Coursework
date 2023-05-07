@@ -112,6 +112,11 @@ namespace MAUI_Coursework.Data
             await Init();
             return await Database.InsertAsync(item);
         }
+        public async Task<int> DeleteLessonAsync(Lessons item)
+        {
+            await Init();
+            return await Database.DeleteAsync(item);
+        }
 
 
 

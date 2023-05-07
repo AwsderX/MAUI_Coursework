@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MAUI_Coursework.Views.Profile"
              Title="Profile">
-    <ScrollView>
-        <StackLayout x:Name="StackL" Margin="10">
+    <ScrollView x:Name="ScrollV"  Scrolled="ScrollV_Scrolled">
+        <StackLayout x:Name="StackLM" Margin="10">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height = "*"/>
@@ -23,6 +23,8 @@
                 <Label x:Name="labelPatronymic" Text="Отчество" Grid.Column="1" Grid.Row="2" Margin="10,5" FontSize="Medium"/>
                 <Button Text="Загрузить изображение" Clicked="Button_Clicked" Grid.Column="0" Grid.Row="5" BackgroundColor="#A82038" Padding="6"/>
             </Grid>
+            <StackLayout x:Name="StackL">
+            </StackLayout>
         </StackLayout>
     </ScrollView>
 </ContentPage>

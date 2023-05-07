@@ -28,7 +28,7 @@
         <ShellContent Title="Профиль"
                       Icon="icon_profile.png"
                       ContentTemplate="{DataTemplate views:Profile}" />
-        <ShellContent Title="First"
+        <ShellContent Title="Расписание"
                       ContentTemplate="{DataTemplate views:NewPage1}" />
         <Tab Title="Справка"
              Icon="paw.png">

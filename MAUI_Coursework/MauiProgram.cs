@@ -10,7 +10,7 @@ public static class MauiProgram
 	public static string loginGlobal = "";
     public static MauiApp CreateMauiApp()
 	{
-		var builder = MauiApp.CreateBuilder();
+        var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
 			.ConfigureFonts(fonts =>
@@ -25,4 +25,5 @@ public static class MauiProgram
 
         return builder.Build();
 	}
+
 }

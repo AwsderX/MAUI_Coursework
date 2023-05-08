@@ -12,8 +12,22 @@ public partial class LoginPage : ContentPage
     public LoginPage()
 	{
 		InitializeComponent();
+        ReCheckAdmin();
     }
-
+    private async void ReCheckAdmin()
+    {
+        Models.Users userrrr = await courseworkDatebase.GetUserAsync(1);
+        if (userrrr == null) 
+        {
+            userrrr = new Models.Users()
+            {
+                Login = "admin",
+                Password = "8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918",
+                Role = 1
+            };
+            await courseworkDatebase.SaveUserAsync(userrrr);
+        }
+    }
     private async void Login_Clicked(object sender, EventArgs e)
     {
         if (login_entry.Text != "" && password_entry.Text != "") 

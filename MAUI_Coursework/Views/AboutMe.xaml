@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUI_Coursework.Views.AboutMe"
+             Title="Об авторе">
+    <VerticalStackLayout Spacing="5" Margin="10">
+        <Image Source="ava_mobile.png"/>
+        <Image Source="by_awsder.png"/>
+        <Label FontSize="22" FontAttributes="Bold" Text="Об авторе" HorizontalOptions="Center" />
+        <Label FontSize="20" Text="Гладышев Андрей Алексеевич" HorizontalOptions="Center"/>
+        <Label FontSize="22" FontAttributes="Bold" Text="Контакты" HorizontalOptions="Center" />
+        <Label FontSize="18" Text="awsd.andercen.022@gmail.com" HorizontalOptions="Center"/>
+    </VerticalStackLayout>
+</ContentPage>

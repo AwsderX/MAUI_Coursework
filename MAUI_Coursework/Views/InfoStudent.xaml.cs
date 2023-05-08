@@ -315,11 +315,12 @@ public partial class InfoStudent : ContentPage
     //    base.OnNavigatedTo(args);
     //    await viewModel.DataSetter();
     //}
-    private void OnItemTapped(object sender, ItemTappedEventArgs e)
+    private async void OnItemTapped(object sender, ItemTappedEventArgs e)
     {
         if (e.Item is StudentsImage student)
         {
-
+            UserInfo userInfo = new UserInfo(student.ID_user, 3);
+            await Navigation.PushAsync(userInfo);
             //DisplayAlert("Информация о пользователе",
             //             $"Логин: {student.Name}\nПароль: {student.Surname}\nРоль: {student.Patronymic}",
             //             "Ок");

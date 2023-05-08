@@ -17,6 +17,7 @@
                        Source="polytech_logo.png"
                        Opacity="0.6" />
                 <Label Text="Электронный журнал учёта успеваемости и посещений"
+                       Margin="10"
                        TextColor="White"
                        FontAttributes="Bold"
                        HorizontalTextAlignment="Center"
@@ -29,9 +30,10 @@
                       Icon="icon_profile.png"
                       ContentTemplate="{DataTemplate views:Profile}" />
         <ShellContent Title="Расписание"
+                      Icon="icon_timetable.png"
                       ContentTemplate="{DataTemplate views:Schedule}" />
         <Tab Title="Справка"
-             Icon="paw.png">
+             Icon="icon_document.png">
             <ShellContent Title="Преподаватели"
                           ContentTemplate="{DataTemplate views:InfoTeacher}"/>
             <ShellContent Title="Студенты"
@@ -39,6 +41,10 @@
         </Tab>
     </FlyoutItem>
     <ShellContent Title="О программе"
+                  Icon="icon_about.png"
                     ContentTemplate="{DataTemplate views:AboutPage}" />
+    <ShellContent Title="Об авторе"
+                  Icon="icon_copyright.png"
+                    ContentTemplate="{DataTemplate views:AboutMe}" />
 
 </Shell>

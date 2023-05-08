@@ -46,6 +46,11 @@ namespace MAUI_Coursework.Data
             await Init();
                 return await Database.Table<Users>().Where(i => i.Login == login).FirstOrDefaultAsync();
         }
+        public async Task<Users> GetUserAsync(int id)
+        {
+            await Init();
+            return await Database.Table<Users>().Where(i => i.ID == id).FirstOrDefaultAsync();
+        }
         //public async Task<T> GetSTAsync<T>(int id) where T : new()
         //{
         //    await Init();
@@ -65,7 +70,13 @@ namespace MAUI_Coursework.Data
         public async Task<List<GradesStud>> GetGradesListAsync(string group, DateTime dt)
         {
             await Init();
-            List<GradesStud> result = await Database.QueryAsync<GradesStud>($"SELECT Students.Name, Students.Surname, Students.Patronymic, Grades.Est, Grades.Att, Students.ID_user, Grades.ID FROM Students LEFT JOIN Grades ON Students.ID_user = Grades.ID_student AND Grades.[Date_lesson] ='{dt.Ticks}' WHERE Students.[Group] = {group} ORDER BY Students.Name");
+            List<GradesStud> result = await Database.QueryAsync<GradesStud>($"SELECT Students.Name, Students.Surname, Students.Patronymic, Grades.Est, Grades.Att, Students.ID_user, Grades.ID FROM Students LEFT JOIN Grades ON Students.ID_user = Grades.ID_student AND Grades.[Date_lesson] ='{dt.Ticks}' WHERE Students.[Group] = '{group}' ORDER BY Students.Name");
+            return result;
+        }
+        public async Task<List<LessonsInfoGrades>> GetLessonsInfoGradesAsync(int id)
+        {
+            await Init();
+            List<LessonsInfoGrades> result = await Database.QueryAsync<LessonsInfoGrades>($"SELECT Lessons.Name, Grades.Date_lesson, Grades.Est, Grades.Att FROM Grades JOIN Lessons ON Grades.ID_lesson = Lessons.ID WHERE Grades.ID_student='{id}'");
             return result;
         }
         public async Task<Teachers> GetTeacherAsync(int id)
@@ -113,6 +124,14 @@ namespace MAUI_Coursework.Data
         {
             await Init();
             return await Database.Table<Teachers>().ToListAsync();
+        }
+        public async Task<int> UpdateUser(Users user)
+        {
+            await Init();
+            var a = await Database.UpdateAsync(user);
+            // Оповещаем подписчиков об изменении данных
+            //-NotifyPropertyChanged(nameof(Students));
+            return a;
         }
         public async Task<int> UpdateStudent(Students student)
         {
@@ -186,49 +205,5 @@ namespace MAUI_Coursework.Data
         //    return (int)result.First()[0];
         //}
 
-
-        public async void InsertStudent()
-        {
-            await Init();
-            await Database.ExecuteAsync("SELECT * FROM [TodoItem] WHERE [Done] = 0");
-        }
-
-
-
-        public async Task<List<TodoItem>> GetItemsAsync()
-        {
-            await Init();
-            return await Database.Table<TodoItem>().ToListAsync();
-        }
-
-        public async Task<List<TodoItem>> GetItemsNotDoneAsync()
-        {
-            await Init();
-            return await Database.Table<TodoItem>().Where(t => t.Done).ToListAsync();
-
-            // SQL queries are also possible
-            //return await Database.QueryAsync<TodoItem>("SELECT * FROM [TodoItem] WHERE [Done] = 0");
-        }
-
-        public async Task<TodoItem> GetItemAsync(int id)
-        {
-            await Init();
-            return await Database.Table<TodoItem>().Where(i => i.ID == id).FirstOrDefaultAsync();
-        }
-
-        public async Task<int> SaveItemAsync(TodoItem item)
-        {
-            await Init();
-            if (item.ID != 0)
-                return await Database.UpdateAsync(item);
-            else
-                return await Database.InsertAsync(item);
-        }
-
-        public async Task<int> DeleteItemAsync<T>(T item)
-        {
-            await Init();
-            return await Database.DeleteAsync(item);
-        }
     }
 }

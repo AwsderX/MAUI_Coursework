@@ -2,17 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MAUI_Coursework.Views.AboutPage"
-             Title="AboutPage">
-    <VerticalStackLayout Spacing="10" Margin="10">
-        <HorizontalStackLayout Spacing="10">
-            <Image Source="dotnet_bot.png"
-                   SemanticProperties.Description="The dot net bot waving hello!"
-                   HeightRequest="64" />
-            <Label FontSize="22" FontAttributes="Bold" Text="Notes" VerticalOptions="End" />
-            <Label FontSize="22" Text="v1.0" VerticalOptions="End" />
-        </HorizontalStackLayout>
+             Title="О программе">
+    <VerticalStackLayout Spacing="5" Margin="10">
+        <Image Source="logo_mpu.png"/>
+        <Label FontSize="22" FontAttributes="Bold" Text="О программе" HorizontalOptions="Center" />
 
-        <Label Text="This app is written in XAML and C# with .NET MAUI." />
-        <Button Text="Learn more..." />
+        <Label Text="Приложение написано на XAML и C# .NET MAUI. по заданию курсового проекта Московского политехнического университета" />
+        <Label FontSize="22" FontAttributes="Bold" Text="Преподаватель" HorizontalOptions="Center" />
+        <Label FontSize="20" Text="Рысин Михаил Леонидович" HorizontalOptions="Center"/>
     </VerticalStackLayout>
 </ContentPage>

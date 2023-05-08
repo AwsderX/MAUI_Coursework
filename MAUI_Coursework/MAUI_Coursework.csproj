@@ -49,8 +49,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\ava_mobile.png" />
+	  <None Remove="Resources\Images\by_awsder.png" />
 	  <None Remove="Resources\Images\icon_about.png" />
-	  <None Remove="Resources\Images\icon_notes.png" />
+	  <None Remove="Resources\Images\icon_copyright.png" />
+	  <None Remove="Resources\Images\icon_document.png" />
+	  <None Remove="Resources\Images\icon_timetable.png" />
 	  <None Remove="Resources\Images\logo_2.png" />
 	  <None Remove="Resources\Images\logo_black.png" />
 	  <None Remove="Resources\Images\logo_mpu.jpg" />
@@ -86,6 +90,9 @@
 	  <MauiXaml Update="Controls\FlyoutHeader.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\AboutMe.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\AboutPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -111,6 +118,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Schedule.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\UserInfo.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

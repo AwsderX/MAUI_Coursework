@@ -6,10 +6,6 @@
              Title="RegistrationPage">
     <ScrollView>
         <VerticalStackLayout x:Name="VSL" Margin="20,0" Spacing="20">
-            <Label 
-                Text="Welcome to .NET MAUI!"
-                VerticalOptions="Center" 
-                HorizontalOptions="Center" />
             <Entry x:Name="name_entry" Placeholder="Имя" FontSize="Medium" Text=""/>
             <Entry x:Name="surname_entry" Placeholder="Фамилия" FontSize="Medium" Text=""/>
             <Entry x:Name="patronymic_entry" Placeholder="Отчество" FontSize="Medium" Text=""/>

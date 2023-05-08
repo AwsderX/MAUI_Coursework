@@ -4,10 +4,6 @@
              x:Class="MAUI_Coursework.Views.LoginPage"
              Title="LoginPage">
     <VerticalStackLayout Spacing="30" Margin="10" Padding="0,0,0,0">
-        <Label 
-            Text="Welcome to .NE435T MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
         <Entry x:Name="login_entry" Placeholder="Логин" Margin="20,0" FontSize="Medium" Keyboard="Text" Text=""/>
         <Entry x:Name="password_entry" Placeholder="Пароль" Margin="20,0" FontSize="Medium" IsPassword="true" Text=""/>
         <Button Text="Войти" Clicked="Login_Clicked" />

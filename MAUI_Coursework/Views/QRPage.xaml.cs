@@ -8,7 +8,7 @@ public partial class QRPage : ContentPage
     string main;
     string login;
     string password;
-    //bool b = true;
+    bool b = true;
     Models.Users users;
     public QRPage()
 	{
@@ -19,9 +19,9 @@ public partial class QRPage : ContentPage
     {
         Dispatcher.Dispatch(() =>
         {
-            //if (b)
-            //{
-            //    b = false;
+            if (b)
+            {
+                b = false;
                 main = $"{e.Results[0].Value}";
                 if (main.Contains("login"))
                 {
@@ -48,11 +48,11 @@ public partial class QRPage : ContentPage
                     //VSL.Clear();
                     userCreate();
                 }
-            //    else
-            //    {
-            //        b = true;
-            //    }
-            //}
+                else
+                {
+                    b = true;
+                }
+            }
         });
     }
 
@@ -72,12 +72,12 @@ public partial class QRPage : ContentPage
             else
             {
                 barcodeResult.Text = $"Неверный код";
-                //b = true;
+                b = true;
             }
         } else
         {
             barcodeResult.Text = $"Неверный код";
-            //b = true;
+            b = true;
         }
     }
 }

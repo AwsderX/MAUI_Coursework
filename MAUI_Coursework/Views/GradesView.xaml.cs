@@ -153,7 +153,7 @@ public partial class GradesView : ContentPage, INotifyPropertyChanged
                     }
                 } else
                 {
-                    if (selectedData.Att == null && selectedData.Att == null)
+                    if (selectedData.Est == null && selectedData.Att == null)
                     {
                         selectedData.Att = mode;
                         Grades grades = new()

@@ -107,11 +107,12 @@ public partial class InfoTeacher : ContentPage
         BindingContext = viewModel;
     }
 
-    private void OnItemTapped(object sender, ItemTappedEventArgs e)
+    private async void OnItemTapped(object sender, ItemTappedEventArgs e)
     {
         if (e.Item is TeachersImage teacher)
         {
-
+            UserInfo userInfo = new UserInfo(teacher.ID_user, 2);
+            await Navigation.PushAsync(userInfo);
         }
      }
 

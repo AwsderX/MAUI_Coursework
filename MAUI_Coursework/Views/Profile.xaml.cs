@@ -1,5 +1,6 @@
 using MAUI_Coursework.Data;
 using MAUI_Coursework.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MAUI_Coursework.Views;
 
@@ -160,12 +161,13 @@ public partial class Profile : ContentPage
         // Очистка текущего списка элементов в ListView
         listViewLessons.ItemsSource = null;
         // Получение обновленных данных из базы данных
-        listViewLessons.ItemsSource = await _courseworkDatebase.GetLessonsAsync(MauiProgram.idGlobal); // Получение обновленных элементов из базы данных
+        listViewLessons.ItemsSource = await _courseworkDatebase.GetLessonsAsync(MauiProgram.idGlobal); 
     }
     private async void ButtonAddLesson_Clicked(object sender, EventArgs e)
     {
         if (buttonAddLesson.Text == "Добавить урок")
         {
+            weekday = DateTime.Today.DayOfWeek.ToString();
             entryName = new()
             {
                 Margin = 5,

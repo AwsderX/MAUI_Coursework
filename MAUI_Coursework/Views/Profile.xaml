@@ -10,7 +10,7 @@
                     <RowDefinition Height = "*"/>
                     <RowDefinition Height = "*"/>
                     <RowDefinition Height = "*"/>
-                    <RowDefinition Height = "60"/>
+                    <RowDefinition Height = "*"/>
                     <RowDefinition Height = "*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>

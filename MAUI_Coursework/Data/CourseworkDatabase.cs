@@ -62,6 +62,12 @@ namespace MAUI_Coursework.Data
             string result = await Database.ExecuteScalarAsync<string>($"SELECT [Group] FROM [Students] WHERE [ID_user] = '{id}'");
             return result;
         }
+        public async Task<List<GradesStud>> GetGradesListAsync(string group, DateTime dt)
+        {
+            await Init();
+            List<GradesStud> result = await Database.QueryAsync<GradesStud>($"SELECT Students.Name, Students.Surname, Students.Patronymic, Grades.Est, Grades.Att, Students.ID_user, Grades.ID FROM Students LEFT JOIN Grades ON Students.ID_user = Grades.ID_student AND Grades.[Date_lesson] ='{dt.Ticks}' WHERE Students.[Group] = {group} ORDER BY Students.Name");
+            return result;
+        }
         public async Task<Teachers> GetTeacherAsync(int id)
         {
             await Init();
@@ -141,8 +147,35 @@ namespace MAUI_Coursework.Data
             await Init();
             return await Database.Table<Lessons>().Where(i => i.Group == group).Where(i => i.Weekday == weekday).OrderBy(i => i.TimeL).ToListAsync();
         }
-
-
+        public async Task<int> SaveGradesAsync(Grades item)
+        {
+            await Init();
+            return await Database.InsertAsync(item);
+        }
+        public async Task<int> UpdateGradesEstAsync(int gradeId, string Est)
+        {
+            await Init();
+            int result = 0;
+            var grade = await Database.Table<Grades>().Where(g => g.ID == gradeId).FirstOrDefaultAsync();
+            if (grade != null)
+            {
+                grade.Est = Est;
+                result = await Database.UpdateAsync(grade);
+            }
+            return result;
+        }
+        public async Task<int> UpdateGradesAttAsync(int gradeId, string Att)
+        {
+            await Init();
+            int result = 0;
+            var grade = await Database.Table<Grades>().Where(g => g.ID == gradeId).FirstOrDefaultAsync();
+            if (grade != null)
+            {
+                grade.Att = Att;
+                result = await Database.UpdateAsync(grade);
+            }
+            return result;
+        }
 
 
 

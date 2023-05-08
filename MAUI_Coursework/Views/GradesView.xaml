@@ -3,29 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MAUI_Coursework.Views.GradesView"
              Title="GradesView">
-<ScrollView>
-        <ListView ItemsSource="{Binding students}" RowHeight="100" ItemTapped="OnItemTapped" SeparatorVisibility="None" x:Name="SListView">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <Grid Padding="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                            <Label Text="{Binding Name}" Grid.Column="0" Grid.Row="0"/>
-                            <Label Text="{Binding Surname}" Grid.Column="1" Grid.Row="0"/>
-                            <Label Text="{Binding Patronymic}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" HorizontalTextAlignment="Center"/>
-                        </Grid>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
-</ScrollView>
+    <ContentPage.Resources>
+        <Grid x:Key="HeaderGrid" BackgroundColor="LightGray">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <FlexLayout Grid.Row="0" Direction="Row" JustifyContent="SpaceEvenly" Padding="10" Margin="5">
+                <Button x:Name="Button1" Text="1" FontSize="25" WidthRequest="60" Clicked="Button_Clicked"/>
+                <Button x:Name="Button2" Text="2" FontSize="25" WidthRequest="60" Clicked="Button_Clicked"/>
+                <Button x:Name="Button3" Text="3" FontSize="25" WidthRequest="60" Clicked="Button_Clicked"/>
+                <Button x:Name="Button4" Text="4" FontSize="25" WidthRequest="60" Clicked="Button_Clicked"/>
+                <Button x:Name="Button5" Text="5" FontSize="25" WidthRequest="60" Clicked="Button_Clicked"/>
+            </FlexLayout>
+
+            <FlexLayout Grid.Row="1" Direction="Row" JustifyContent="SpaceEvenly" Padding="10" Margin="5">
+                <Button x:Name="ButtonN" Text="Н" FontSize="25" WidthRequest="70" Clicked="Button_Clicked"/>
+                <Button x:Name="ButtonO" Text="О" FontSize="25" WidthRequest="70" Clicked="Button_Clicked"/>
+                <Button x:Name="ButtonB" Text="Б" FontSize="25" WidthRequest="70" Clicked="Button_Clicked"/>
+                <Button x:Name="ButtonPlus" Text="+" FontSize="25" WidthRequest="70" Clicked="Button_Clicked"/>
+            </FlexLayout>
+        </Grid>
+    </ContentPage.Resources>
+    <StackLayout>
+        <ContentView Content="{StaticResource HeaderGrid}" HeightRequest="130" />
+        <ScrollView>
+            <StackLayout x:Name="StackL">
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
 </ContentPage>

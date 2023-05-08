@@ -1,5 +1,4 @@
-﻿using SQLite;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace MAUI_Coursework.Models
 {
-    public class Grades
+    public class GradesStud
     {
-        [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
-        public int ID_student { get; set; }
-        public int ID_lesson { get; set; }
-        public DateTime Date_lesson { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Patronymic { get; set; }
         public string Est { get; set; } //Оценка
         public string Att { get; set; } //Посещаемость
+        public int ID_user { get; set; }
+        public int ID { get; set; }
     }
 }

@@ -1,10 +1,13 @@
 using MAUI_Coursework.Data;
 using MAUI_Coursework.Models;
+using System.ComponentModel;
+
 namespace MAUI_Coursework.Views;
 
 public partial class Schedule : ContentPage
 {
     CourseworkDatebase _courseworkDatebase = new();
+
     public Schedule()
 	{
 		InitializeComponent(); 
@@ -60,10 +63,12 @@ public partial class Schedule : ContentPage
 
 
             ListView listView = new();
-            if (MauiProgram.idGlobal == 2)
-            {
-                listView.ItemsSource = await _courseworkDatebase.GetLessonsScheduleAsync(MauiProgram.idGlobal, str);
-            } else if (MauiProgram.idGlobal == 3)
+            listView.ItemsSource = await _courseworkDatebase.GetLessonsScheduleAsync(MauiProgram.idGlobal, str);
+            //if (MauiProgram.idGlobal == 2)
+            //{
+            //    listView.ItemsSource = await _courseworkDatebase.GetLessonsScheduleAsync(MauiProgram.idGlobal, str);
+            //} else
+            if (MauiProgram.idGlobal == 3)
             {
                 string StGroup = await _courseworkDatebase.GetStudentGroupAsync(MauiProgram.idGlobal);
                 listView.ItemsSource = await _courseworkDatebase.GetLessonsScheduleAsync(StGroup, str);
@@ -115,8 +120,32 @@ public partial class Schedule : ContentPage
                 };
             });
             listView.ItemTemplate = dataTemplate;
-            listView.ItemTapped += ListView_ItemTapped;
+            listView.ItemSelected += async (sender, e) =>
+            {
+                if (e.SelectedItem != null && e.SelectedItem is Lessons selectedData)
+                {
+                    foreach (var cell in listView.TemplatedItems)
+                    {
+                        var viewCell = cell as ViewCell;
+                        if (viewCell.View != null)
+                        {
+                            viewCell.View.BackgroundColor = (viewCell.BindingContext == selectedData) ? Color.FromArgb("#A82038") : Color.FromArgb("#FFFFFF");
+                        }
+                    }
+                    // ѕолучаем текущую дату
+                    DateTime currentDate = DateTime.Today;
 
+                    // ¬ычисл€ем разницу в дн€х между текущим днем недели и целевым днем недели
+                    DayOfWeek targetDayOfWeek = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), selectedData.Weekday, true);
+                    int differenceInDays = targetDayOfWeek - currentDate.DayOfWeek;
+
+                    // ѕолучаем дату целевого дн€ недели в текущей неделе
+                    DateTime targetDate = currentDate.AddDays(differenceInDays).Date;
+
+                    GradesView gradesView = new(selectedData.Group, selectedData.ID, targetDate);
+                    await Navigation.PushAsync(gradesView);
+                }
+            };
             Grid.SetColumn(listView, 0);
             Grid.SetRow(listView, 1);
             grid.Children.Add(listView);
@@ -126,17 +155,17 @@ public partial class Schedule : ContentPage
        
     }
 
-    private async void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
-    {
-        GradesView gradesView = new("100", 1);
-        await Navigation.PushAsync(gradesView);
-        if (sender is Lessons x) 
-        {
-            await DisplayAlert("1","1","1");
-            //GradesView gradesView = new(x.Group, x.ID);
-           //await Navigation.PushAsync(gradesView);  
-        }
-    }
+    //private async void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
+    //{
+    //    //GradesView gradesView = new("100", 1);
+    //    //await Navigation.PushAsync(gradesView);
+    //    //if (sender is Lessons x) 
+    //    //{
+    //    //    await DisplayAlert("1","3","1");
+    //    //    GradesView gradesView = new(x.Group, x.ID);
+    //    //    await Navigation.PushAsync(gradesView);  
+    //    //}
+    //}
 
     private void ScrollV_Scrolled(object sender, ScrolledEventArgs e)
     {

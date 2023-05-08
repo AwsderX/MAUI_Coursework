@@ -59,13 +59,9 @@ public partial class LoginPage : ContentPage
         Application.Current.MainPage = new AppShell();
     }
 
-    private void Button_ClickedAsync(object sender, EventArgs e)
+    private async void Button_Clicked(object sender, EventArgs e)
     {
-
-    }
-
-    private void Button_Clicked(object sender, EventArgs e)
-    {
-
+        QRPage qrPage = new();
+        await Navigation.PushAsync(qrPage);
     }
 }

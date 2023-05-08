@@ -253,7 +253,8 @@ public partial class Profile : ContentPage
             }
             #pragma warning restore 4014
             buttonAddLesson.IsEnabled = true;
-    
+            await RefreshListView();
+
         }
 
     }

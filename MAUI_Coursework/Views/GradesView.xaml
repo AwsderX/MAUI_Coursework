@@ -26,8 +26,8 @@
             </FlexLayout>
         </Grid>
     </ContentPage.Resources>
-    <StackLayout>
-        <ContentView Content="{StaticResource HeaderGrid}" HeightRequest="130" />
+    <StackLayout x:Name="StackLM">
+        <ContentView Content="{StaticResource HeaderGrid}" HeightRequest="130" x:Name="Head"/>
         <ScrollView>
             <StackLayout x:Name="StackL">
             </StackLayout>

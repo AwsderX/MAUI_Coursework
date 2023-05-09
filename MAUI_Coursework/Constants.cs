@@ -24,9 +24,9 @@ namespace MAUI_Coursework
         public static string DatabasePath =>
             //Path.Combine(FileSystem.AppDataDirectory, DatabaseFilename);
             //Path.Combine(Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDocuments).AbsolutePath, DatabaseFilename);
-            Path.Combine(Path.GetFullPath("//sdcard//Documents//"), DatabaseFilename);
+            //Path.Combine(Path.GetFullPath("//sdcard//Documents//"), DatabaseFilename);
             //Path.Combine(Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDocuments).AbsolutePath, DatabaseFilename);
-            //Path.Combine(Android.App.Application.Context.GetExternalFilesDir(null).AbsolutePath, DatabaseFilename);
+            Path.Combine(Android.App.Application.Context.GetExternalFilesDir(null).AbsolutePath, DatabaseFilename);
 #pragma warning restore CS0117
     }
 }

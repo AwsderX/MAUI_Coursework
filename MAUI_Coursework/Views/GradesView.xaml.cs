@@ -42,6 +42,10 @@ public partial class GradesView : ContentPage, INotifyPropertyChanged
     }
     public async void LoadData()
 	{
+        if (MauiProgram.roleGlobal == 3)
+        {
+            StackLM.Remove(Head);
+        }
         //students.Clear();
         //List<string> students = await _courseworkDatebase.GetStudentsAsync(group);
 

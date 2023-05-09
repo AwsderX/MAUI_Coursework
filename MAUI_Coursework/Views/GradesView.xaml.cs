@@ -118,66 +118,70 @@ public partial class GradesView : ContentPage, INotifyPropertyChanged
 
         listView.ItemTemplate = dataTemplate;
 
-        listView.ItemSelected += async (sender, e) =>
+        if (MauiProgram.roleGlobal == 2)
         {
-            if (e.SelectedItem != null && e.SelectedItem is GradesStud selectedData)
+            listView.ItemSelected += async (sender, e) =>
             {
-                foreach (var cell in listView.TemplatedItems)
+                if (e.SelectedItem != null && e.SelectedItem is GradesStud selectedData)
                 {
-                    var viewCell = cell as ViewCell;
-                    if (viewCell.View != null)
+                    foreach (var cell in listView.TemplatedItems)
                     {
-                        viewCell.View.BackgroundColor = (viewCell.BindingContext == selectedData) ? Color.FromArgb("#FA78E6") : Color.FromArgb("#FFFFFF");
-                    }
-                }
-                
-                if (mode=="1" || mode == "2" || mode == "3" || mode == "4" || mode == "5")
-                {
-                    if (selectedData.Est == null && selectedData.Att == null)
-                    {
-                        selectedData.Est = mode;
-                        Grades grades = new()
+                        var viewCell = cell as ViewCell;
+                        if (viewCell.View != null)
                         {
-                            ID_lesson = Id_lesson,
-                            ID_student = selectedData.ID_user,
-                            Date_lesson = dt,
-                            Est = selectedData.Est,
-                            Att = null
-                        };
-                        await _courseworkDatebase.SaveGradesAsync(grades);
+                            viewCell.View.BackgroundColor = (viewCell.BindingContext == selectedData) ? Color.FromArgb("#FA78E6") : Color.FromArgb("#FFFFFF");
+                        }
                     }
-                    else
-                    {
-                        selectedData.Est = mode;
-                        await _courseworkDatebase.UpdateGradesEstAsync(selectedData.ID, selectedData.Est);
-                    }
-                } else
-                {
-                    if (selectedData.Est == null && selectedData.Att == null)
-                    {
-                        selectedData.Att = mode;
-                        Grades grades = new()
-                        {
-                            ID_lesson = Id_lesson,
-                            ID_student = selectedData.ID_user,
-                            Date_lesson = dt,
-                            Att = selectedData.Att,
-                            Est = null
-                        };
-                        await _courseworkDatebase.SaveGradesAsync(grades);
-                    }
-                    else
-                    {
-                        selectedData.Att = mode;
-                        await _courseworkDatebase.UpdateGradesAttAsync(selectedData.ID, selectedData.Att);
-                    }
-                }
-                gradesStuds = await _courseworkDatebase.GetGradesListAsync(group, dt);
-                UpdateGradesList(gradesStuds);
 
-                listView.ItemsSource = gradesStuds;
-            }
-        };
+                    if (mode == "1" || mode == "2" || mode == "3" || mode == "4" || mode == "5")
+                    {
+                        if (selectedData.Est == null && selectedData.Att == null)
+                        {
+                            selectedData.Est = mode;
+                            Grades grades = new()
+                            {
+                                ID_lesson = Id_lesson,
+                                ID_student = selectedData.ID_user,
+                                Date_lesson = dt,
+                                Est = selectedData.Est,
+                                Att = null
+                            };
+                            await _courseworkDatebase.SaveGradesAsync(grades);
+                        }
+                        else
+                        {
+                            selectedData.Est = mode;
+                            await _courseworkDatebase.UpdateGradesEstAsync(selectedData.ID, selectedData.Est);
+                        }
+                    }
+                    else
+                    {
+                        if (selectedData.Est == null && selectedData.Att == null)
+                        {
+                            selectedData.Att = mode;
+                            Grades grades = new()
+                            {
+                                ID_lesson = Id_lesson,
+                                ID_student = selectedData.ID_user,
+                                Date_lesson = dt,
+                                Att = selectedData.Att,
+                                Est = null
+                            };
+                            await _courseworkDatebase.SaveGradesAsync(grades);
+                        }
+                        else
+                        {
+                            selectedData.Att = mode;
+                            await _courseworkDatebase.UpdateGradesAttAsync(selectedData.ID, selectedData.Att);
+                        }
+                    }
+                    gradesStuds = await _courseworkDatebase.GetGradesListAsync(group, dt);
+                    UpdateGradesList(gradesStuds);
+
+                    listView.ItemsSource = gradesStuds;
+                }
+            };
+        }
 
         StackL.Add(listView);
     }
